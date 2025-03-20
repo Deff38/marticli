@@ -1,18 +1,16 @@
 # marticli
----
 ![image](https://github.com/user-attachments/assets/2fc9aa70-f6b8-49d8-8e49-5eac28048fe9)
 
 Script to display the Martiri canteen menu of Pisa in the terminal (soon supporting other university canteens in Pisa as well).
 
 The script will:
 
-    Download the Martiri university canteen menu from the DSU Toscana website
-    Extract table data from the PDF files
-    Display the menus in a readable format in the terminal
-    Delete temporary PDF files after use
+- Download the Martiri university canteen menu from the DSU Toscana website
+- Extract table data from the PDF files
+- Display the menus in a readable format in the terminal
+- Delete temporary PDF files after use
 
 ## Installation
----
 - Clone the repository:
 ```sh
 git clone https://github.com/Deff38/marticli.git
@@ -28,10 +26,9 @@ marticli
 ```
 
 ## Dependencies
----
-    requests → To download files
-    beautifulsoup4 → To analize HTML pages
-    pdfplumber → To extract text and tables from PDFs
-    tabulate → To display tables in a readable format
-    python3
+[requests](https://github.com/psf/requests) → To download files
+[beautifulSoup4](https://github.com/wention/BeautifulSoup4) → To analize HTML pages
+[pdfplumber](https://github.com/jsvine/pdfplumber) → To extract text and tables from PDFs
+[tabulate](https://github.com/tabulate/tabulate) → To display tables in a readable format
+[python3](https://github.com/python/cpython)
 
