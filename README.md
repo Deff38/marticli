@@ -26,9 +26,9 @@ marticli
 ```
 
 ## Dependencies
-[requests](https://github.com/psf/requests) → To download files
-[beautifulSoup4](https://github.com/wention/BeautifulSoup4) → To analize HTML pages
-[pdfplumber](https://github.com/jsvine/pdfplumber) → To extract text and tables from PDFs
-[tabulate](https://github.com/tabulate/tabulate) → To display tables in a readable format
-[python3](https://github.com/python/cpython)
+- [requests](https://github.com/psf/requests) → To download files
+- [beautifulSoup4](https://github.com/wention/BeautifulSoup4) → To analize HTML pages
+- [pdfplumber](https://github.com/jsvine/pdfplumber) → To extract text and tables from PDFs
+- [tabulate](https://github.com/tabulate/tabulate) → To display tables in a readable format
+- [python3](https://github.com/python/cpython)
 
