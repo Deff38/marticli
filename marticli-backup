@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+
+import requests
+from bs4 import BeautifulSoup
+import pdfplumber
+from tabulate import tabulate
+import os
+
+# URL della pagina con i menu
+pagina_mensa = "https://www.dsu.toscana.it/i-menu"
+base_url = "https://www.dsu.toscana.it"
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+}
+
+# Funzione per scaricare e leggere un PDF
+def scarica_e_leggi_pdf(pdf_url, nome_file):
+    pdf_response = requests.get(pdf_url, headers=headers)
+
+    if pdf_response.status_code == 200:
+        with open(nome_file, "wb") as f:
+            f.write(pdf_response.content)
+
+        try:
+            with pdfplumber.open(nome_file) as pdf:
+                print(f"\nMenù {nome_file}:\n")
+                found_table = False
+                for page in pdf.pages:
+                    table = page.extract_table()
+                    if table:
+                        found_table = True
+                        print(tabulate(table, headers="firstrow", tablefmt="grid", maxcolwidths=[10, 15, 15, 15, 10, 10]))
+                        print("\n" + "-"*80)
+
+                if not found_table:
+                    print("Nessuna tabella trovata. Il PDF potrebbe essere un'immagine.")
+
+        except Exception as e:
+            print("Errore nella lettura del PDF:", e)
+        
+        # Cancella il PDF dopo l'uso
+        try:
+            os.remove(nome_file)
+        except Exception as e:
+            print(f"Errore nella rimozione di {nome_file}:", e)
+
+    else:
+        print("Errore nel download del PDF")
+
+# Scarica la pagina HTML
+response = requests.get(pagina_mensa, headers=headers)
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Trova i link ai menu
+    menu_links = [
+        base_url + link['href'] if link['href'].startswith("/") else link['href']
+        for link in soup.find_all('a', href=True) 
+        if "/documents/d/ardsu/" in link['href'].lower()
+    ]
+
+    # Trova PDF di Martiri
+    martiri_pdfs = [link for link in menu_links if "martiri" in link.lower()]
+
+    # Scarica e stampa i PDF
+    if martiri_pdfs:
+        for i, pdf_url in enumerate(martiri_pdfs):
+            scarica_e_leggi_pdf(pdf_url, f"menu_martiri_{i+1}.pdf")
+    else:
+        print("Nessun PDF della mensa Martiri trovato.")
+
+else:
+    print("Errore nel caricamento della pagina della mensa")
