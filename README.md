@@ -1,5 +1,7 @@
 # marticli
 ---
+![image](https://github.com/user-attachments/assets/2fc9aa70-f6b8-49d8-8e49-5eac28048fe9)
+
 Script to display the Martiri canteen menu of Pisa in the terminal (soon supporting other university canteens in Pisa as well).
 
 The script will:
